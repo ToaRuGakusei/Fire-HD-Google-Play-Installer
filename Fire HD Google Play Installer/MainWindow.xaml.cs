@@ -25,7 +25,6 @@ namespace Fire_HD_Google_Play_Installer
         private System.Net.WebClient wc = new System.Net.WebClient();
         System.Net.WebClient wc2 = new System.Net.WebClient();//なぜ分けた？？？？
         private ProcessStartInfo si;
-
         private bool finish;
         private void Install_Click(object sender, RoutedEventArgs e)
         {
@@ -42,15 +41,6 @@ namespace Fire_HD_Google_Play_Installer
                     i++;
                 }
 
-                while (finish == false)
-                {
-                    Debug.WriteLine("待機中");
-                }
-                if (finish == true)
-                {
-                    Debug.WriteLine("完了");
-                    adb();
-                }
             }
 
         }
@@ -67,15 +57,16 @@ namespace Fire_HD_Google_Play_Installer
             {
                 if (five.IsChecked == true)
                 {
+                    MessageBox.Show("タブレットをパソコンに接続してください。\n※固まってしまった場合は強制終了させてください。","Infomation", MessageBoxButton.OK,MessageBoxImage.Information);
                     si = new ProcessStartInfo(@"adb.exe", $"install .\\Download\\0.apk");
                 }
-                       
+
 
             }));
 
             // ウィンドウ表示を完全に消したい場合
             si.CreateNoWindow = true;
-            si.RedirectStandardError = false;
+            si.RedirectStandardError = true;
             si.RedirectStandardOutput = true;
             si.UseShellExecute = false;
             using (var proc = new Process())
@@ -103,7 +94,11 @@ namespace Fire_HD_Google_Play_Installer
                         while (true)
                         {
                             var l = proc.StandardOutput.ReadLine();
-                            Debug.WriteLine(l);
+                            this.Dispatcher.Invoke((Action)(() =>
+                            {
+                                adb_Log.Content = l;
+
+                            }));
                             if (l == null)
                             {
                                 break;
@@ -112,7 +107,7 @@ namespace Fire_HD_Google_Play_Installer
                             {
                                 this.Dispatcher.Invoke((Action)(() =>
                                 {
-                                    
+
                                 }));
                             }
                             catch (Exception)
@@ -156,11 +151,13 @@ namespace Fire_HD_Google_Play_Installer
             if (n == 3)
             {
                 finish = true;
+                Debug.WriteLine("完了");
+                adb();
 
             }
         }
 
-       
+
     }
 }
 
