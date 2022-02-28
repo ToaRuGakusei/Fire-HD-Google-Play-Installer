@@ -44,15 +44,16 @@ namespace Fire_HD_Google_Play_Installer
             }
             else if (seven.IsChecked == true)
             {
-                int i = 0;
+                /*int i = 0;
                 Directory.CreateDirectory(@".\Download");
-                string[] Urls = new string[] { "https://appszx.com/wp-content/uploads/2019/08/com.google.android.gsf_.login_7.1.2-25_minAPI23nodpi_appszx.com_.apk", "https://download1586.mediafire.com/1mxova5purcg/2xrhdtnm26df3av/Google+Services+Framework_v9_appszx.com.apk", "https://r2-static-assets.androidapksfree.com/sdata/5e3f9bb672ebf370bd6b3faf7e661843/com.google.android.gms_v22.02.21_(000300-428111784)-220221000_Android-4.4.apk", "https://d-01.aabstatic.com/1020/google_play_store_22.4.25-21_androidapksbox.apk" };
+                string[] Urls = new string[] { "https://appszx.com/wp-content/uploads/2019/08/com.google.android.gsf_.login_7.1.2-25_minAPI23nodpi_appszx.com_.apk", "https://github.com/jjqqkk/android-vpn/releases/download/1903/google-services-framework-9.apk", "https://r2-static-assets.androidapksfree.com/sdata/5e3f9bb672ebf370bd6b3faf7e661843/com.google.android.gms_v22.02.21_(000300-428111784)-220221000_Android-4.4.apk", "https://us.softpedia-secure-download.com/dl/d39f328a3f8691003f3b2dbc927918d9/621c4cb7/800000089/apk/Google%20Play%20Store-16.8.19-all%20[0]%20[PR]%20270615440.apk" };
                 foreach (string url in Urls)
                 {
 
                     downloadFileAsync(url, $".\\Download\\{i}.apk");
                     i++;
-                }
+                }*/
+                adb();
 
             }
 
@@ -64,13 +65,24 @@ namespace Fire_HD_Google_Play_Installer
             MessageBox.Show("タブレットをパソコンに接続してください。\n※固まってしまった場合は強制終了させてください。", "Infomation", MessageBoxButton.OK, MessageBoxImage.Information);
             si = new ProcessStartInfo(@"adb.exe", $"device");
             MessageBox.Show("USBデバッグを許可してください。", "Infomation", MessageBoxButton.OK, MessageBoxImage.Information);
-            for (c = 0; c <=3;c++)
+            for (c = 0; c <= 3; c++)
             {
-                
-                    
-                    si = new ProcessStartInfo(@"adb.exe", $"install .\\Download\\{c}.apk");
 
+                if (seven.IsChecked == true)
+                {
+                    si = new ProcessStartInfo(@"adb.exe", $"install .\\Fire_OS_7\\{c}.apk");
+                }
+                else if (six.IsChecked == true)
+                {
+                    si = new ProcessStartInfo(@"adb.exe", $"install .\\Fire_OS_6\\{c}.apk");
+                }
+                else if(five.IsChecked == true)
+                {
+                    si = new ProcessStartInfo(@"adb.exe", $"install .\\Download\\{c}.apk");
+                }
                 
+
+
                 // ウィンドウ表示を完全に消したい場合
                 // si.CreateNoWindow = true;
                 si.RedirectStandardError = true;
@@ -85,7 +97,7 @@ namespace Fire_HD_Google_Play_Installer
                     proc.Exited += (sender, ev) =>
                     {
                         Console.WriteLine($"exited");
-                        
+
                         n = 0;
                         // プロセスが終了すると呼ばれる
                         ctoken.Cancel();
@@ -116,7 +128,7 @@ namespace Fire_HD_Google_Play_Installer
             }
 
 
-            MessageBox.Show("処理が終了しました！", "Infomation", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("処理が終了しました！\n一度再起動してください。", "Infomation", MessageBoxButton.OK, MessageBoxImage.Information);
 
 
 
@@ -127,7 +139,7 @@ namespace Fire_HD_Google_Play_Installer
 
         private async void downloadFileAsync(string uri, string outputPath)
         {
-            
+
             var client = new HttpClient();
             HttpResponseMessage res = await client.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead);
 
@@ -153,10 +165,10 @@ namespace Fire_HD_Google_Play_Installer
                     file.Delete();
                 }
                 Console.WriteLine("Files deleted successfully");
-                
+
 
             }
-            
+
         }
 
 

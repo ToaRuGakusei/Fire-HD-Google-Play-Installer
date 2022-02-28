@@ -8,8 +8,10 @@
         Title="Fire HD Google Play Installer" Height="215" Width="400">
     <Grid Width="400" Margin="0,0,0,-6">
         <Button Name="Install" Content="インストール開始" Margin="0,138,0,28" Click="Install_Click" HorizontalAlignment="Center" Width="80"/>
-        <RadioButton Name="five" Content="Fire OS 5" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <RadioButton Name="seven" Content="Fire OS 7" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
+        <RadioButton Name="five" Content="Fire OS 5" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top"/>
+        <RadioButton Name="seven" Content="Fire OS 7" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top"/>
+        <RadioButton Name="six" Content="Fire OS 6" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top"/>
+        <Label Content="Fire HD GooglePlay Installer" HorizontalAlignment="Center" Margin="0,21,0,0" VerticalAlignment="Top" Width="336" Height="32" FontSize="16" FontFamily="Mukasi Mukasi"/>
 
     </Grid>
 </Window>
